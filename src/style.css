@@ -1,0 +1,45 @@
+body {
+    margin: 0;
+    padding: 0.2rem;
+    width: 9rem;
+    background-color: cornsilk;
+    text-align: left; 
+  } 
+
+  .forme{
+    color: beige;
+  }
+
+  h4{
+    text-align: center;
+    font-size: small;
+    animation: fadeInAnimation 0.6s linear;
+  } 
+
+  @keyframes fadeInAnimation {
+    0% {
+      font-size: 1%;
+      opacity: 0;
+    }
+    100% {
+      font-size: 100%;
+      opacity: 1;
+    }
+  } 
+    
+  button{
+    border: none;
+    padding: 0.2rem;
+    width: 4.5rem;
+    margin-left: 2rem;
+    box-shadow: 1px 1px 4px 0px rgba(57, 55, 55, 0.692);
+    background-color: rgb(169, 154, 154);
+    cursor: pointer;
+    transition: 0.6s;
+    margin-bottom: 0.2rem;
+    font-size: x-small;
+    font-weight: bold;
+  } 
+  button:hover{
+    background-color: rgba(193, 177, 177, 0.72);
+  }
