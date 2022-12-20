@@ -1,11 +1,13 @@
 {
     "name": "Language Fixer",
     "version": "1.0",
-    "description":"When language is wrong",
+    "description":"Language typed fixer - English/Hebrew",
     "manifest_version": 3,
     "action": {
         "default_popup": "popup.html",
-        "default_title":"lalalala"
+        "default_title":"Open",
+        "default_icon": "teacher4.png"
+         
       },
       "background":{
          "service_worker":"background.js"

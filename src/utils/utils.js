@@ -3,7 +3,7 @@ const index = [
     {q:"/"},{w:"'"},{e:"ק"},{r:"ר"},{t:"א"},{y:"ט"},{u:"ו"},{i:"ן"},{o:"ם"},{p:"פ"},
     {a:"ש"},{s:"ד"},{d:"ג"},{f:"כ"},{g:"ע"},{h:"י"},{j:"ח"},{k:"ל"},{l:"ך"},{';':"ף"},
     {'.':"ץ"},{',':"ת"},{m:"צ"},{n:"מ"},{b:"נ"},{v:"ה"},{c:"ב"},{x:"ס"},{z:"ז"}
-]   
+]  
 
 
 let regexRuleToNative = /^[0-9*#+~`!@$%^&()_=[\]\{}|':"\/<>?]+$/
@@ -31,12 +31,5 @@ const setItemToLocal = (key,value)=>{
     return localStorage.getItem(value)
  } 
 
-const clearLocal = () =>{
-    localStorage.clear()
-} 
 
-const clearField = (fieldName) =>{
-    localStorage.removeItem(fieldName)
-}
-
- export  {switchToEnglish,switchToNativeLanguage,setItemToLocal,getItemFromLocal,clearLocal,clearField} 
+ export  {switchToEnglish,switchToNativeLanguage,setItemToLocal,getItemFromLocal} 
