@@ -21,15 +21,7 @@ const switchToEnglish = (letter) =>{
     if(regexRuleToEnglish.test(letter)) return letter
     let foundOne = index.find(el => Object.values(el)[0] == letter)
     return Object.keys(foundOne)[0]
-} 
-
-const setItemToLocal = (key,value)=>{
-    localStorage.setItem([key],value)
- } 
-
- const getItemFromLocal = (value)=>{
-    return localStorage.getItem(value)
- } 
+}   
 
 
- export  {switchToEnglish,switchToNativeLanguage,setItemToLocal,getItemFromLocal} 
+ export  {switchToEnglish,switchToNativeLanguage} 

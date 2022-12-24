@@ -1,72 +1,94 @@
-import {switchToEnglish,switchToNativeLanguage,setItemToLocal,getItemFromLocal} from './utils/utils'
+import {switchToEnglish,switchToNativeLanguage} from './utils/utils'
 
 
-//Triggers whenever user changes activation mode on the popup window
-chrome.runtime.onMessage.addListener(
+ chrome.runtime.sendMessage({message: 'activate extension'},response =>{
 
-    function(request, sender, sendResponse) {
-     
-      //Every time the popup opens, check the current mode to update the button text
-      if(request.message === 'currentMode')
-        { 
-           let isActiveMode = getItemFromLocal('mode')
-
-           if(isActiveMode === 'unactive' || !isActiveMode) 
-           {
-              sendResponse('active')
-              return
-           }
-           sendResponse('unactive')
-           return
-        }
-          //Depend on what the user decide, set the localStorage mode of activation
-          setItemToLocal("mode",request.message?"active":"unactive")
-          sendResponse(request.message?"unactive":"active");
-          
-       })
-
-
-      window.addEventListener('select',e=>{
-         
-        //Only if user switch to active
-        if(getItemFromLocal('mode')  === 'active') 
-          { 
-            
-           if (window.getSelection().toString().trim().length === 0) return 
-            
-              let text =  window.getSelection().toString().toLowerCase().split('')
-              let originalString =  e.target.value
-
-              let inputFields = document.getElementsByTagName('input'); 
-              let inputToInsertBack = []
-
-              for(let i=0;i<inputFields.length;i++)
-                {
-                 if(inputFields[i].className === e.target.className)
-                   { 
-                     inputToInsertBack = inputFields[i]
-                   }
-                } 
-               
-             
-               //The start and end indexes/indices of the selected string
-               let start = (inputToInsertBack.selectionStart)
-               let end = (inputToInsertBack.selectionEnd)
-
-               let regexRule = /^[~`!@#$%^&*()_+=[\]\{}|;':",.\/<>?a-zA-Z0-9-\s]+$/
-
-               if(regexRule.test(window.getSelection().toString())){ 
-                  
-                 let translateStr = text.map(t=>switchToNativeLanguage(t)) 
-                 return inputToInsertBack.value = originalString.substring(0, start) + translateStr.join('') + originalString.substring(end) 
-
-                } 
-
-               let translateStr = text.map(t=>switchToEnglish(t))
-               return inputToInsertBack.value = originalString.substring(0, start) + translateStr.join('') + originalString.substring(end)
-
-              }
-          }) 
-    
+          if(response !== 'OK') return
       
-     
+           window.addEventListener('keydown',e=>{ 
+              
+            //Only if user press Ctrl + B
+            if(e.ctrlKey && e.code === "KeyB")
+              {
+                
+                 if(window.getSelection().toString().trim().length === 0) return 
+                  
+                  //Selected text to convert
+                  let text = window.getSelection().toString().toLowerCase().split('')
+                  let originalString =  e.target.value
+                  
+                  let inputFields = document.getElementsByTagName('input'); 
+                  let textAreaFields = document.getElementsByTagName('textarea')
+                  let divFields = document.getElementsByTagName('div')
+                  let elementToInsertBack; let divToInsertBack;
+                     
+                  //Using for loop instead of high order functions -> HTMLcollection
+                  for(let i=0;i<inputFields?.length;i++)
+                   {
+                   
+                      if(e.target.tagName.toLowerCase() !== 'input') break
+                      if(inputFields[i] === e.target)
+                        { 
+                         elementToInsertBack = inputFields[i]
+                        }
+                   }
+                    
+                  for(let i=0;i<textAreaFields?.length;i++)
+                   {
+                      if(e.target.tagName.toLowerCase() !== 'textarea') break
+                      if(textAreaFields[i] === e.target)
+                        { 
+                          elementToInsertBack = textAreaFields[i]               
+                        }
+                   }     
+                    
+                  for(let i=0;i<divFields?.length;i++)
+                   {
+                      if(e.target.tagName.toLowerCase() !== 'div') break
+                      if(divFields[i] === e.target)
+                        { 
+                          originalString = divFields[i].innerText
+                          divToInsertBack = divFields[i]                     
+                        }
+                   }  
+                                     
+                    
+                   let regexRule = /^[~`!@#$%^&*()_+=[\]\{}|;':",.\/<>?a-zA-Z0-9-\s]+$/ 
+                                     
+                   //If it's div and not input
+                   if(divToInsertBack)
+                   {  
+                      //Start & end indexes if the selected text
+                      let divIndexStart = window.getSelection().anchorOffset
+                      let divIndexEnd =  window.getSelection().focusOffset
+                    
+                      if(regexRule.test(window.getSelection().toString()))
+                         {  
+                          let translateStr = text.map(t=>switchToNativeLanguage(t)) 
+                          return divToInsertBack.innerHTML = originalString.substring(0, divIndexStart) + translateStr.join('') + originalString.substring(divIndexEnd) 
+                         } 
+                                 
+                          let translateStr = text.map(t=>switchToEnglish(t))
+                          return divToInsertBack.innerHTML = originalString.substring(0, divIndexStart) + translateStr.join('') + originalString.substring(divIndexEnd)
+                   }
+                     
+                   
+                   //The start & end indexes of the selected text if it's an input
+                   let start = (elementToInsertBack?.selectionStart)
+                   let end = (elementToInsertBack?.selectionEnd)  
+
+                   if(regexRule.test(window.getSelection().toString()))
+                        {  
+                          let translateStr = text.map(t=>switchToNativeLanguage(t)) 
+                          return elementToInsertBack.value = originalString.substring(0, start) + translateStr.join('') + originalString.substring(end) 
+                        } 
+                                    
+                          let translateStr = text.map(t=>switchToEnglish(t))
+                          return elementToInsertBack.value = originalString.substring(0, start) + translateStr.join('') + originalString.substring(end)
+                                
+                }  
+           }) 
+
+    })
+
+    

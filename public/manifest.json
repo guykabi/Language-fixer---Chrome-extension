@@ -7,7 +7,6 @@
         "default_popup": "popup.html",
         "default_title":"Open",
         "default_icon": "teacher4.png"
-         
       },
       "background":{
          "service_worker":"background.js"
@@ -20,7 +19,7 @@
       ],
     "content_scripts":[
          {
-          "matches":["https://*/*"],
+          "matches":["<all_urls>"],
           "js":["contentScript.js"]
          }
 
