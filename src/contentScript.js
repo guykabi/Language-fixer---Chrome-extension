@@ -3,7 +3,7 @@ import {switchToEnglish,switchToNativeLanguage} from './utils/utils'
 
  chrome.runtime.sendMessage({message: 'activate extension'},response =>{
 
-          if(response !== 'OK') return
+          if(response != 'OK') return
       
            window.addEventListener('keydown',e=>{ 
               
