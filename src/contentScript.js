@@ -15,7 +15,7 @@ import {switchToEnglish,switchToNativeLanguage} from './utils/utils'
                   
                   //Selected text to convert
                   let selectedText = window.getSelection().toString().toLowerCase().split('')
-                  let originalString =  e.target.value
+                  let originalString = e.target.value
                   
                   let inputFields = document.getElementsByTagName('input'); 
                   let textAreaFields = document.getElementsByTagName('textarea')
