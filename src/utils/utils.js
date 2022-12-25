@@ -7,7 +7,7 @@ const index = [
 
 
 let regexRuleToNative = /^[0-9*#+~`!@$%^&()_=[\]\{}|':"\/<>?]+$/
-let regexRuleToEnglish =  /^[~`!@#$%^&*()_+=[\]\{}|;':",.\/<>?a-zA-Z0-9-]+$/
+let regexRuleToEnglish =  /^[~`!@#$%^&*()_+=[\]\{}|;:",.\<>?a-zA-Z0-9-]+$/
 
 const switchToNativeLanguage = (letter) =>{
     if(letter === " ") return " "
