@@ -12,6 +12,7 @@ let regexRuleToEnglish =  /^[~`!@#$%^&*()_+=[\]\{}|;':",.\/<>?a-zA-Z0-9-]+$/
 const switchToNativeLanguage = (letter) =>{
     if(letter === " ") return " "
     if(regexRuleToNative.test(letter)) return letter
+
     let foundOne = index.find(el => Object.keys(el) == letter)
     return foundOne[letter]
 } 
@@ -19,6 +20,7 @@ const switchToNativeLanguage = (letter) =>{
 const switchToEnglish = (letter) =>{
     if(letter === " ") return " " 
     if(regexRuleToEnglish.test(letter)) return letter
+    
     let foundOne = index.find(el => Object.values(el)[0] == letter)
     return Object.keys(foundOne)[0]
 }   

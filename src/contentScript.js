@@ -14,7 +14,7 @@ import {switchToEnglish,switchToNativeLanguage} from './utils/utils'
                  if(window.getSelection().toString().trim().length === 0) return 
                   
                   //Selected text to convert
-                  let text = window.getSelection().toString().toLowerCase().split('')
+                  let selectedText = window.getSelection().toString().toLowerCase().split('')
                   let originalString =  e.target.value
                   
                   let inputFields = document.getElementsByTagName('input'); 
@@ -24,8 +24,7 @@ import {switchToEnglish,switchToNativeLanguage} from './utils/utils'
                      
                   //Using for loop instead of high order functions -> HTMLcollection
                   for(let i=0;i<inputFields?.length;i++)
-                   {
-                   
+                   {                 
                       if(e.target.tagName.toLowerCase() !== 'input') break
                       if(inputFields[i] === e.target)
                         { 
@@ -48,27 +47,27 @@ import {switchToEnglish,switchToNativeLanguage} from './utils/utils'
                       if(divFields[i] === e.target)
                         { 
                           originalString = divFields[i].innerText
-                          divToInsertBack = divFields[i]                     
+                          divToInsertBack = divFields[i]                   
                         }
                    }  
                                      
                     
                    let regexRule = /^[~`!@#$%^&*()_+=[\]\{}|;':",.\/<>?a-zA-Z0-9-\s]+$/ 
                                      
-                   //If it's div and not input
+                   //If it is a div element to insert to
                    if(divToInsertBack)
                    {  
-                      //Start & end indexes if the selected text
+                      //Start & end indexes of the selected text
                       let divIndexStart = window.getSelection().anchorOffset
                       let divIndexEnd =  window.getSelection().focusOffset
                     
                       if(regexRule.test(window.getSelection().toString()))
                          {  
-                          let translateStr = text.map(t=>switchToNativeLanguage(t)) 
+                          let translateStr = selectedText.map(t=>switchToNativeLanguage(t)) 
                           return divToInsertBack.innerHTML = originalString.substring(0, divIndexStart) + translateStr.join('') + originalString.substring(divIndexEnd) 
                          } 
                                  
-                          let translateStr = text.map(t=>switchToEnglish(t))
+                          let translateStr = selectedText.map(t=>switchToEnglish(t))
                           return divToInsertBack.innerHTML = originalString.substring(0, divIndexStart) + translateStr.join('') + originalString.substring(divIndexEnd)
                    }
                      
@@ -79,11 +78,11 @@ import {switchToEnglish,switchToNativeLanguage} from './utils/utils'
 
                    if(regexRule.test(window.getSelection().toString()))
                         {  
-                          let translateStr = text.map(t=>switchToNativeLanguage(t)) 
+                          let translateStr = selectedText.map(t=>switchToNativeLanguage(t)) 
                           return elementToInsertBack.value = originalString.substring(0, start) + translateStr.join('') + originalString.substring(end) 
                         } 
                                     
-                          let translateStr = text.map(t=>switchToEnglish(t))
+                          let translateStr = selectedText.map(t=>switchToEnglish(t))
                           return elementToInsertBack.value = originalString.substring(0, start) + translateStr.join('') + originalString.substring(end)
                                 
                 }  

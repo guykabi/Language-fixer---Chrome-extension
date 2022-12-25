@@ -17,6 +17,8 @@ body {
   h4{
     text-align: center;
     font-size: small;
+    transform: scale(1.08);
+    text-shadow: rgba(0, 0, 0, 0.35) 0.95px 1.18px;
     animation: fadeInAnimation 0.4s linear;
   } 
 

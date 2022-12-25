@@ -9,9 +9,9 @@ const Popup = () => {
     <div>
       <div id='mainDiv'>
         <h4>Wrong language?</h4> 
-        <span> - Select wrong typed text</span><br />
-        <span> - Press Ctrl +B</span><br />
-        <span> - See the magic</span><br /><br />
+        <span><strong> - Select wrong typed text </strong></span><br />
+        <span><strong> - Press Ctrl+B </strong></span><br />
+        <span><strong> - See the magic </strong></span><br /><br />
       </div>
     </div> 
 
