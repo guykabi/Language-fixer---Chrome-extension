@@ -23,7 +23,24 @@ const switchToEnglish = (letter) =>{
     
     let foundOne = index.find(el => Object.values(el)[0] == letter)
     return Object.keys(foundOne)[0]
-}   
+}    
 
 
- export  {switchToEnglish,switchToNativeLanguage} 
+
+const handleLogic = (toRegex,selectedText,originalString,start,end) =>{
+    let regexRule = /^[~`!@#$%^&*()_+=[\]\{}|;:",.\<>?a-zA-Z0-9-\s]+$/  
+    if(regexRule.test(toRegex))
+        {  
+         let translateStr = selectedText.map(t=>switchToNativeLanguage(t)) 
+         window.getSelection().empty();
+         return originalString.substring(0, start) + translateStr.join('') + originalString.substring(end) 
+                          } 
+                            
+        let translateStr = selectedText.map(t=>switchToEnglish(t))
+        window.getSelection().empty();
+        return originalString.substring(0, start) + translateStr.join('') + originalString.substring(end)
+
+}
+
+
+ export  {switchToEnglish,switchToNativeLanguage,handleLogic} 
