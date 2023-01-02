@@ -32,15 +32,15 @@ const handleLogic = (toRegex,selectedText,originalString,start,end) =>{
     if(regexRule.test(toRegex))
         {  
          let translateStr = selectedText.map(t=>switchToNativeLanguage(t)) 
-         window.getSelection().empty();
+         //window.getSelection().empty();
          return originalString.substring(0, start) + translateStr.join('') + originalString.substring(end) 
-                          } 
+        } 
                             
         let translateStr = selectedText.map(t=>switchToEnglish(t))
-        window.getSelection().empty();
+        //window.getSelection().empty();
         return originalString.substring(0, start) + translateStr.join('') + originalString.substring(end)
 
-}
+}  
 
 
- export  {switchToEnglish,switchToNativeLanguage,handleLogic} 
+ export  {handleLogic} 
